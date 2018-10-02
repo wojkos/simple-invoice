@@ -1,0 +1,32 @@
+.container
+  .row
+    h3 Checkout
+    div.col-sm-12.table-responsive
+      table.table.table-striped.table-condensed.table-hover
+        thead
+          th Name
+          th Unit price
+          th Count
+          th Sum
+        tbody
+          - @invoice.invoices_product.each do |product|
+            tr
+              td
+                =product.product.name
+              td
+                =product.product.decorate.price_with_currency
+              td
+                =product.quantity
+              td
+                =product.decorate.total_with_currency
+        tfoot
+          tr
+            td.text-right colspan=3 
+              strong
+                = "Total"
+            td
+              strong
+                = @invoice.decorate.total_with_currency
+  .row
+    = link_to('Back', invoices_path, class: 'btn btn-primary')
+    = link_to("Close invoice", checkouts_path, :method => :post, class: 'btn btn-success', :data => { :confirm => 'Are you sure?' })

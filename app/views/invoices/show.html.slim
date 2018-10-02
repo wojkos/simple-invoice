@@ -1,0 +1,56 @@
+.container
+  .row
+    -if @invoice.closed == true
+      .col-12
+        p.red-text Invoice closed
+      .col-12
+        h5
+          strong Number: 
+          = @invoice.name
+    .col-12
+      h3 Invoice summary
+    div.col-sm-12.table-responsive
+      table.table.table-striped.table-condensed.table-hover
+        thead
+          th Name
+          th Unit price
+          th Count
+          th Sum
+          -if @invoice.closed == false
+            th
+            th
+        tbody
+          - @invoice.invoices_product.each do |product|
+            tr
+              td
+                =product.product.name
+              td
+                =product.product.decorate.price_with_currency
+              td
+                =product.quantity
+              td
+                =product.decorate.total_with_currency
+              -if @invoice.closed == false
+                td
+                  = button_to('+', invoices_products_path(product_id: product.product), class: 'btn btn-warning')
+                td
+                  = button_to('-', invoices_products_path(product_id: product.product, decrease: 'true'), class: 'btn btn-warning')
+        tfoot
+          tr
+            td.text-right colspan=3 
+              strong
+                = "Total"
+            td
+              strong
+                = @invoice.total_with_currency
+  -if @invoice.closed == false
+    .row
+      .col-sm-4.col-sm-4-offset
+      form action='/invoices_products' method='post' class='form-inline'
+        = hidden_field_tag :authenticity_token, form_authenticity_token
+        input type="text" name="code" required='required' class='form-control'
+        input type="submit" value="Add product by code" class='btn btn-default'
+  .row
+    = link_to('Back', invoices_path, class: 'btn btn-primary')
+    -if @invoice.closed == false
+      = link_to('Checkout', new_checkout_path, class: 'btn btn-success')

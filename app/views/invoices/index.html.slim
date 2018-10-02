@@ -1,0 +1,16 @@
+div.container
+  div.row
+    h3  Invoices
+    div.col-sm-12.table-responsive
+      table.table.table-striped.table-condensed.table-hover
+        thead
+          tr
+            th Created at
+            th Number
+            th Total
+            th Closed
+            th
+        tbody
+          - @invoices.reverse_each do |invoice|
+            tr
+              = render invoice

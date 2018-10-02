@@ -1,0 +1,33 @@
+
+development:
+  adapter:  postgresql
+  host:     localhost
+  port:     5432
+  encoding: unicode
+  database: SimpleInvoice_dev
+  pool:     5
+  username: postgres
+  password: postgres
+  template: template0
+
+test:
+  adapter:  postgresql
+  host:     localhost
+  port:     5432
+  encoding: unicode
+  database: SimpleInvoice_test
+  pool:     5
+  username: postgres
+  password: postgres
+  template: template0
+
+production:
+  adapter:  <%= ENV['SIMPLEINVOICE_PROD_ADAPTER'] %>
+  host:     <%= ENV['SIMPLEINVOICE_PROD_HOST'] %>
+  port:     <%= ENV['SIMPLEINVOICE_PROD_PORT'] %>
+  encoding: unicode
+  database: <%= ENV['SIMPLEINVOICE_PROD_DATABASE'] %>
+  pool:     5
+  username: <%= ENV['SIMPLEINVOICE_PROD_USER'] %>
+  password: <%= ENV['SIMPLEINVOICE_PROD_PASS'] %>
+  template: template0

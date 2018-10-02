@@ -1,0 +1,22 @@
+div.container
+  div.row
+    .col-12
+      h3 Products
+    .col-12
+      = link_to('Add new product', new_product_path, class: 'btn btn-primary')
+      -if session[:invoice_id]
+        = link_to('Current invoice', invoice_path(session[:invoice_id]), class: 'btn btn-success')
+    div.col-12.table-responsive
+      table.table.table-striped.table-condensed.table-hover
+        thead
+          tr
+            th #
+            th Name
+            th Code
+            th Price
+            th
+            th
+        tbody
+          - @products.each_with_index do |product, index|
+            tr
+              = render product, counter: index

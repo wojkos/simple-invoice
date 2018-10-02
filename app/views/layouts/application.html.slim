@@ -1,0 +1,21 @@
+doctype html
+html
+  head
+    title
+      | Simple Invoice
+    = csrf_meta_tags
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload', content: 'no-cache'
+  body
+    header
+      == render 'layouts/application_navigation'
+    main
+      .container#alert
+        .row
+          -if notice.present?
+            aside.alert.alert-info
+              =notice
+          -if alert.present?
+            aside.alert.alert-danger
+              =alert
+      = yield

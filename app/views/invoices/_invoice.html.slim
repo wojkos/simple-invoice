@@ -1,0 +1,10 @@
+td
+  = invoice.created_at
+td
+ = invoice.name
+td
+  = invoice.total_with_currency
+td
+  = invoice.closed
+td.text-right
+  = link_to('Show', invoice_path(invoice.id), class: 'btn btn-primary')
